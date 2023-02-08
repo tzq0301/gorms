@@ -22,7 +22,10 @@ db, err := gorms.InMemorySqliteWithInitSQL("CREATE TABLE ...")
 gorms.PercentagePrefix("Tim") // "%Tim"
 gorms.PercentageSuffix("Tim") // "Tim%"
 gorms.PercentageAround("Tim") // "%Tim%"
-gorms.Like(gorms.column, pattern)   // db.Where("? LIKE ?", column, pattern)
+
+gorms.Like(gorms.column, pattern)         // db.Where("? LIKE ?", column, %pattern%)
+gorms.BeforeLike(gorms.column, pattern)   // db.Where("? LIKE ?", column, %pattern)
+gorms.AfterLike(gorms.column, pattern)    // db.Where("? LIKE ?", column, pattern%)
 ```
 
 ## Order

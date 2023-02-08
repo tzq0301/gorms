@@ -30,13 +30,27 @@ func PercentageAround(v string) string {
 	return WildCardPercentage + v + WildCardPercentage
 }
 
-// Like generate `column LIKE pattern`
+// Like generate `column LIKE %pattern%`
 //
-//  Like(column, pattern) -> db.Where("? LIKE ?", column, pattern)
+//  Like(column, pattern) -> db.Where("? LIKE ?", column, %+pattern+%)
 //
 // The order of the parameters (column & pattern) is consistent with the order of LIKE clause
 func Like(column, pattern string) func(*gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
-		return db.Where("? LIKE ?", column, pattern)
+		return db.Where("? LIKE ?", column, PercentageAround(pattern))
+	}
+}
+
+// BeforeLike generate `column LIKE %pattern`
+func BeforeLike(column, pattern string) func(*gorm.DB) *gorm.DB {
+	return func(db *gorm.DB) *gorm.DB {
+		return db.Where("? LIKE ?", column, PercentagePrefix(pattern))
+	}
+}
+
+// AfterLike generate `column LIKE pattern%`
+func AfterLike(column, pattern string) func(*gorm.DB) *gorm.DB {
+	return func(db *gorm.DB) *gorm.DB {
+		return db.Where("? LIKE ?", column, PercentageSuffix(pattern))
 	}
 }
