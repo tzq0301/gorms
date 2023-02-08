@@ -28,7 +28,7 @@ func Asc(order string) string {
 
 // Orders make a concatenation
 //
-//  Orders("id DESC", "create_time ASC") -> ""id DESC, create_time ASC""
+//  Orders("id DESC", "create_time ASC") -> "id DESC, create_time ASC"
 func Orders(orders ...string) string {
 	return strings.Join(orders, comma+space)
 }
