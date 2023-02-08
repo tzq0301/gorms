@@ -1,5 +1,7 @@
 # gorms - util for gorm
 
+Looking forward to your pull requests!
+
 ## Alias
 
 ```go
